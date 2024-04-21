@@ -51,7 +51,11 @@ export class UsersService {
     const user = await this.prisma.user.findFirst({
       where: { username },
       include: {
-        posts: true,
+        posts: {
+          orderBy: {
+            createdAt: 'desc',
+          },
+        },
         _count: { select: { posts: true, followers: true, following: true } },
       },
     });
