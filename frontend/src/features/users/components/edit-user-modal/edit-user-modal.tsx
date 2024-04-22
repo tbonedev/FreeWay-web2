@@ -140,7 +140,15 @@ export const EditUserModal = (
           </form>
         </Form>
         <DialogFooter className="justify-center">
-          <Button form="form" type="submit" className="w-full">
+          <Button
+            form="form"
+            disabled={form.formState.isSubmitting}
+            className="w-full"
+            type="submit"
+          >
+            {form.formState.isSubmitting && (
+              <Icons.loader className="mr-2 size-4 animate-spin" />
+            )}
             Save
           </Button>
         </DialogFooter>

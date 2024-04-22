@@ -17,6 +17,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
+  Icons,
   Input,
   useToast,
 } from '@/components';
@@ -83,7 +84,14 @@ export const RegisterForm = () => {
             </FormItem>
           )}
         />
-        <Button className="w-full" type="submit">
+        <Button
+          disabled={form.formState.isSubmitting}
+          className="w-full"
+          type="submit"
+        >
+          {form.formState.isSubmitting && (
+            <Icons.loader className="mr-2 size-4 animate-spin" />
+          )}
           Submit
         </Button>
       </form>

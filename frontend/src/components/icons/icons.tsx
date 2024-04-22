@@ -6,6 +6,7 @@ import {
   Dot,
   Heart,
   Home,
+  Loader2,
   LogOut,
   LucideProps,
   Menu,
@@ -39,6 +40,7 @@ export const Icons = {
   uploadClout: UploadCloud,
   x: X,
   camera: Camera,
+  loader: Loader2,
   ellipsis: (props: LucideProps) => (
     <svg
       xmlns="http://www.w3.org/2000/svg"
