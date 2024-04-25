@@ -26,6 +26,7 @@ import {
   FormMessage,
   Icons,
   Input,
+  Textarea,
   useToast,
 } from '@/components';
 import { editUserAction, TUser } from '@/features/users';
@@ -131,7 +132,7 @@ export const EditUserModal = (
                 <FormItem>
                   <FormLabel>Bio</FormLabel>
                   <FormControl>
-                    <Input placeholder="bio" {...field} />
+                    <Textarea placeholder="bio" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

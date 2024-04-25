@@ -29,6 +29,7 @@ import {
   FormMessage,
   Icons,
   Input,
+  Textarea,
   useToast,
 } from '@/components';
 import { createPostAction } from '@/features/posts';
@@ -121,7 +122,7 @@ export const CreatePostModal = () => {
                 <FormItem>
                   <FormLabel>Content</FormLabel>
                   <FormControl>
-                    <Input placeholder="content" {...field} />
+                    <Textarea placeholder="content" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -133,7 +134,7 @@ export const CreatePostModal = () => {
           <div className="relative w-fit">
             <Image
               src={URL.createObjectURL(image)}
-              className="h-40 rounded-md object-cover"
+              className="h-32 rounded-md object-cover"
               alt="post image"
               width={500}
               height={500}
