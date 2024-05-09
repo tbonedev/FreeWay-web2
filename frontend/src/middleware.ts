@@ -10,8 +10,8 @@ export const middleware = async (request: NextRequest) => {
       return NextResponse.rewrite(new URL('/', request.url));
     }
   } else {
-    const staticRoutes = ['/', '/explore', '/notifications', '/create'];
-    const dynamicRoutes = ['/profile', '/posts'];
+    const staticRoutes = ['/'];
+    const dynamicRoutes = ['/user', '/post'];
     if (
       staticRoutes.includes(url.pathname) ||
       dynamicRoutes.some((route) => url.pathname.startsWith(route))
