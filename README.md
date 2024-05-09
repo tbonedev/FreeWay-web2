@@ -15,7 +15,8 @@ Backend: https://github.com/Skolaczk/SocialHub/blob/develop/api/README.md
 ### Frontend:
 - Next.js
 - Typescript
-- Tailwindcss
+- Tailwind CSS
+- Shadcn/UI
 - React-hook-form
 - Zod
 
@@ -27,11 +28,11 @@ Backend: https://github.com/Skolaczk/SocialHub/blob/develop/api/README.md
 - Passport
 
 ## Screenshots 📺
-![Zrzut ekranu 2024-01-08 203832](https://github.com/Skolaczk/SocialHub/assets/76774237/ba2238e5-2267-4549-b042-f0a28700144d)
-![Zrzut ekranu 2024-01-08 204414](https://github.com/Skolaczk/SocialHub/assets/76774237/c2868af6-da9d-46ad-9333-36c5b641208c)
-![Zrzut ekranu 2024-01-08 204349](https://github.com/Skolaczk/SocialHub/assets/76774237/93dd5461-4d63-4b67-b3b4-a2bc2cac8786)
-![Zrzut ekranu 2024-01-08 204646](https://github.com/Skolaczk/SocialHub/assets/76774237/37af1702-6a2e-4f6c-82c8-22be3d893856)
-![Zrzut ekranu 2024-01-08 2041001](https://github.com/Skolaczk/SocialHub/assets/76774237/bae0b80e-4ecf-4155-b275-11a78c049e50)
+![image](https://github.com/Skolaczk/SocialHub/assets/76774237/1a13daf9-a023-4e4a-8c8b-65c3ad7c7081)
+![image](https://github.com/Skolaczk/SocialHub/assets/76774237/3a58e1d6-5662-4801-b49d-aca5fc45fd1d)
+![image](https://github.com/Skolaczk/SocialHub/assets/76774237/3ff648ef-a468-42a9-8162-2464f787a341)
+![image](https://github.com/Skolaczk/SocialHub/assets/76774237/8c9d7267-0410-457e-a99a-4a83b311090d)
+![image](https://github.com/Skolaczk/SocialHub/assets/76774237/933502a0-7fd8-40eb-8be7-697a9153bb4b)
 
 
 If you encounter a problem, write to this e-mail address: [skolakmichal1@gmail.com](mailto:skolakmichal1@gmail.com)
