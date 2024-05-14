@@ -55,6 +55,9 @@ export class UsersService {
           orderBy: {
             createdAt: 'desc',
           },
+          include: {
+            _count: true,
+          },
         },
         _count: { select: { posts: true, followers: true, following: true } },
       },

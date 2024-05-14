@@ -10,6 +10,7 @@ import {
   LogOut,
   LucideProps,
   Menu,
+  MessageCircle,
   Moon,
   PlusSquare,
   Search,
@@ -41,6 +42,7 @@ export const Icons = {
   x: X,
   camera: Camera,
   loader: Loader2,
+  message: MessageCircle,
   ellipsis: (props: LucideProps) => (
     <svg
       xmlns="http://www.w3.org/2000/svg"
