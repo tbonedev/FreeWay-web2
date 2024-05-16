@@ -1,6 +1,7 @@
 import {
   Bell,
   Camera,
+  ChevronLeft,
   Compass,
   Copy,
   Dot,
@@ -43,6 +44,7 @@ export const Icons = {
   camera: Camera,
   loader: Loader2,
   message: MessageCircle,
+  arrowLeft: ChevronLeft,
   ellipsis: (props: LucideProps) => (
     <svg
       xmlns="http://www.w3.org/2000/svg"

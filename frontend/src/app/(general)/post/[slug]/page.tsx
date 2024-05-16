@@ -9,7 +9,7 @@ const PostPage = async ({ params }: TParams) => {
   if (!post) notFound();
 
   return (
-    <div className="flex justify-center pb-20 md:ml-20 md:mt-4 md:pb-4 xl:ml-0">
+    <div className="flex flex-col items-center pb-20 md:ml-20 md:mt-4 md:pb-4 xl:ml-0">
       <PostItem post={post} isPostPage />
     </div>
   );
