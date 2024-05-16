@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { Post } from '@prisma/client';
-import { CreatePost } from 'src/posts/types';
+import { CreatePost, EditPost } from 'src/posts/types';
 
 @Injectable()
 export class PostsService {
@@ -9,6 +9,7 @@ export class PostsService {
 
   findAll(): Promise<Post[]> {
     return this.prisma.post.findMany({
+      take: 10,
       orderBy: {
         createdAt: 'desc',
       },
@@ -55,6 +56,15 @@ export class PostsService {
 
   create(data: CreatePost): Promise<Post> {
     return this.prisma.post.create({
+      data,
+    });
+  }
+
+  edit(id: number, data: EditPost): Promise<Post> {
+    return this.prisma.post.update({
+      where: {
+        id,
+      },
       data,
     });
   }

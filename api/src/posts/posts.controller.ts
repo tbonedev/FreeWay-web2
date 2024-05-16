@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   Param,
+  Patch,
   Post,
   UploadedFile,
   UseGuards,
@@ -14,7 +15,7 @@ import { multerOptions } from 'src/config';
 import { JwtGuard } from 'src/common/guards';
 import { GetUser } from 'src/common/decorators';
 import { Post as PostType, User } from '@prisma/client';
-import { CreatePostDto } from 'src/posts/dto';
+import { CreatePostDto, EditPostDto } from 'src/posts/dto';
 import { LikesService } from 'src/likes/likes.service';
 import { getImageUrl } from 'src/common/helpers';
 
@@ -32,28 +33,48 @@ export class PostsController {
 
     return await Promise.all(
       posts.map(async (post) => {
+        const isEditable = post.userId === user.id;
+        const isUpdated =
+          new Date(post.updatedAt).getTime() !==
+          new Date(post.createdAt).getTime();
+
         const isLiked = !!(await this.likesService.findOne({
           postId: post.id,
           userId: user.id,
         }));
-        return { ...post, isLiked };
+        return { ...post, isLiked, isEditable, isUpdated };
       }),
     );
   }
 
   @Get(':id')
   @UseGuards(JwtGuard)
-  async findOne(
-    @Param() { id }: { id: string },
-    @GetUser() user: User,
-  ): Promise<PostType & { isLiked: boolean }> {
+  async findOne(@Param() { id }: { id: string }, @GetUser() user: User) {
     const post = await this.postsService.findOne(+id);
+
+    const isEditable = post.userId === user.id;
+    const isUpdated =
+      new Date(post.updatedAt).getTime() !== new Date(post.createdAt).getTime();
     const isLiked = !!(await this.likesService.findOne({
       postId: post.id,
       userId: user.id,
     }));
 
-    return { ...post, isLiked };
+    return { ...post, isLiked, isEditable, isUpdated };
+  }
+
+  @Patch(':id')
+  @UseGuards(JwtGuard)
+  @UseInterceptors(FileInterceptor('image', multerOptions))
+  edit(
+    @Param() { id }: { id: string },
+    @UploadedFile() file: Express.Multer.File,
+    @Body() editPostDto: EditPostDto,
+  ): Promise<PostType> {
+    return this.postsService.edit(+id, {
+      content: editPostDto.content,
+      image: getImageUrl(file.filename),
+    });
   }
 
   @Post()

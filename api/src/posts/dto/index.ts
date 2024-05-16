@@ -1,1 +1,2 @@
-export * from 'src/posts/dto/create-post.dto';
+export * from './create-post.dto';
+export * from './edit-post.dto';
