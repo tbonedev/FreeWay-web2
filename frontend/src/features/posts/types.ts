@@ -12,6 +12,8 @@ export type TPost = {
   };
   _count: { comments: number; likes: number };
   isLiked: boolean;
+  isEditable: boolean;
+  isUpdated: boolean;
 };
 
 export type TComment = {

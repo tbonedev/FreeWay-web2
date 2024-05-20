@@ -7,6 +7,7 @@ import {
   createComment,
   createPost,
   deleteLike,
+  editPost,
   TCreateCommentCommand,
 } from '@/features/posts';
 
@@ -40,6 +41,14 @@ export const deleteLikeAction = async (postId: number) => {
 
 export const createPostAction = async (formData: FormData) => {
   const { error } = await createPost(formData);
+
+  if (error) return error;
+
+  revalidateTag('posts');
+};
+
+export const editPostAction = async (formData: FormData, postId: number) => {
+  const { error } = await editPost(formData, postId);
 
   if (error) return error;
 

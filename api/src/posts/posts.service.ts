@@ -61,11 +61,19 @@ export class PostsService {
   }
 
   edit(id: number, data: EditPost): Promise<Post> {
+    const updateData: EditPost = {
+      content: data.content,
+    };
+
+    if (data.image) {
+      updateData.image = data.image;
+    }
+
     return this.prisma.post.update({
       where: {
         id,
       },
-      data,
+      data: updateData,
     });
   }
 }

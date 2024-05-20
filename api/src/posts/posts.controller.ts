@@ -73,7 +73,7 @@ export class PostsController {
   ): Promise<PostType> {
     return this.postsService.edit(+id, {
       content: editPostDto.content,
-      image: getImageUrl(file.filename),
+      image: file ? getImageUrl(file.filename) : null,
     });
   }
 

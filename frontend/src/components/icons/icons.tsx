@@ -16,6 +16,7 @@ import {
   PlusSquare,
   Search,
   SendHorizonal,
+  SquarePen,
   Sun,
   SunMoon,
   UploadCloud,
@@ -45,6 +46,7 @@ export const Icons = {
   loader: Loader2,
   message: MessageCircle,
   arrowLeft: ChevronLeft,
+  edit: SquarePen,
   ellipsis: (props: LucideProps) => (
     <svg
       xmlns="http://www.w3.org/2000/svg"

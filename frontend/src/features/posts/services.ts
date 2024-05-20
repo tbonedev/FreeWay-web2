@@ -1,8 +1,8 @@
 import { TComment, TCreateCommentCommand, TPost } from '@/features/posts';
 import { api } from '@/lib/api';
 
-export const getPost = async (id: number) => {
-  return await api<TPost>(`posts/${id}`);
+export const getPost = async (postId: number) => {
+  return await api<TPost>(`posts/${postId}`);
 };
 
 export const getPosts = async () => {
@@ -28,6 +28,13 @@ export const createComment = async (body: TCreateCommentCommand) => {
 export const createPost = async (formData: FormData) => {
   return await api('posts', {
     method: 'POST',
+    body: formData,
+  });
+};
+
+export const editPost = async (formData: FormData, postId: number) => {
+  return await api(`posts/${postId}`, {
+    method: 'PATCH',
     body: formData,
   });
 };

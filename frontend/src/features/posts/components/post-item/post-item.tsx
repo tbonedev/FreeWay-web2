@@ -15,7 +15,7 @@ type TPostItemProps = {
 };
 
 export const PostItem = async ({ post, isPostPage }: TPostItemProps) => {
-  const { createdAt, image, content, id, user } = post;
+  const { createdAt, image, content, id, user, isUpdated } = post;
   const { data: comments } = await getComments(id);
   const { data: currentUser } = await getMe();
 
@@ -28,10 +28,10 @@ export const PostItem = async ({ post, isPostPage }: TPostItemProps) => {
             <UserCard {...user} />
             <Icons.dot className="text-muted-foreground size-5" />
             <span className="text-muted-foreground text-sm">
-              {moment(createdAt).fromNow()}
+              {moment(createdAt).fromNow()} {isUpdated && '(edited)'}
             </span>
           </div>
-          <PostItemDropdown id={id} />
+          <PostItemDropdown post={post} />
         </div>
         <p className="px-4 pb-4">{content}</p>
         <ImageWithFallback

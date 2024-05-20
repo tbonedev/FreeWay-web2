@@ -1,8 +1,8 @@
 import Link from 'next/link';
 
-import { Button, Icons } from '@/components';
+import { Button, DialogTrigger, Icons } from '@/components';
 import { NotificationsListSheet } from '@/features/notifications';
-import { CreatePostModal } from '@/features/posts';
+import { PostFormModal } from '@/features/posts';
 import { UserSearchSheet } from '@/features/users';
 
 type TNavMenuProps = {
@@ -30,7 +30,17 @@ export const NavMenu = ({ username }: TNavMenuProps) => {
           <span className="hidden text-base xl:block">Profile</span>
         </Link>
       </Button>
-      <CreatePostModal />
+      <PostFormModal>
+        <DialogTrigger asChild>
+          <Button
+            variant="ghost"
+            className="flex items-center gap-4 font-normal xl:justify-start"
+          >
+            <Icons.plusSquare />
+            <span className="hidden text-base xl:block">Create</span>
+          </Button>
+        </DialogTrigger>
+      </PostFormModal>
     </nav>
   );
 };

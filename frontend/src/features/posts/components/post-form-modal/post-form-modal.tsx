@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useState } from 'react';
+import { ReactNode, useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -20,7 +20,6 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
   Form,
   FormControl,
   FormField,
@@ -32,18 +31,25 @@ import {
   Textarea,
   useToast,
 } from '@/components';
-import { createPostAction } from '@/features/posts';
+import { createPostAction, editPostAction, TPost } from '@/features/posts';
 
-export const CreatePostModal = () => {
+type TPostFormModalProps = {
+  post?: TPost;
+  children: ReactNode;
+};
+
+export const PostFormModal = ({ children, post }: TPostFormModalProps) => {
   const { toast } = useToast();
   const [isOpen, setIsOpen] = useState(false);
   const form = useForm<TCreatePostFormSchema>({
     resolver: zodResolver(createPostFormSchema),
-    defaultValues,
+    defaultValues: post ? { content: post.content } : defaultValues,
   });
-  const [image, setImage] = useState<File | null>();
+  const [image, setImage] = useState<File | undefined>();
+  const [imageUrl, setImageUrl] = useState<string | undefined>(post?.image);
   const onDrop = useCallback((acceptedFiles: File[]) => {
     setImage(acceptedFiles[0]);
+    setImageUrl(URL.createObjectURL(acceptedFiles[0]));
   }, []);
 
   const { getRootProps, getInputProps } = useDropzone({
@@ -52,16 +58,20 @@ export const CreatePostModal = () => {
     accept: { 'image/jpeg': [], 'image/png': [] },
   });
 
-  const resetImage = () => setImage(null);
-
   const onSubmit = async ({ content }: TCreatePostFormSchema) => {
-    if (!image) return;
+    if (!post || !image) return;
 
     const formData = new FormData();
     formData.append('image', image);
     formData.append('content', content);
 
-    const error = await createPostAction(formData);
+    let error;
+
+    if (post) {
+      error = await editPostAction(formData, post.id);
+    } else {
+      error = await createPostAction(formData);
+    }
 
     if (error) {
       toast({
@@ -72,30 +82,24 @@ export const CreatePostModal = () => {
     }
 
     toast({
-      title: 'Post added.',
+      title: post ? 'Post edited.' : 'Post added.',
     });
 
-    form.reset();
-    resetImage();
+    if (!post) form.reset();
+    setImage(undefined);
     setIsOpen(false);
   };
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogTrigger asChild>
-        <Button
-          variant="ghost"
-          className="flex items-center gap-4 font-normal xl:justify-start"
-        >
-          <Icons.plusSquare />
-          <span className="hidden text-base xl:block">Create</span>
-        </Button>
-      </DialogTrigger>
+      {children}
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Create post</DialogTitle>
+          <DialogTitle>{post ? 'Edit post' : 'Create post'}</DialogTitle>
           <DialogDescription>
-            Add image and content to post. Click save when you are done.
+            {post
+              ? 'Edit image or content in post. Click save when you are done.'
+              : 'Add image and content to post. Click save when you are done.'}
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -130,17 +134,17 @@ export const CreatePostModal = () => {
             />
           </form>
         </Form>
-        {image && (
+        {imageUrl && (
           <div className="relative w-fit">
             <Image
-              src={URL.createObjectURL(image)}
+              src={imageUrl}
               className="h-32 rounded-md object-cover"
               alt="post image"
               width={500}
               height={500}
             />
             <Button
-              onClick={resetImage}
+              onClick={() => setImageUrl(undefined)}
               className="absolute right-2 top-2 size-6"
               variant="secondary"
               size="icon"
@@ -159,7 +163,7 @@ export const CreatePostModal = () => {
             {form.formState.isSubmitting && (
               <Icons.loader className="mr-2 size-4 animate-spin" />
             )}
-            Create post
+            {post ? 'Edit post' : 'Create post'}
           </Button>
         </DialogFooter>
       </DialogContent>
