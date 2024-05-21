@@ -39,6 +39,12 @@ export const editPost = async (formData: FormData, postId: number) => {
   });
 };
 
+export const deletePost = async (postId: number) => {
+  return await api(`posts/${postId}`, {
+    method: 'DELETE',
+  });
+};
+
 export const addLike = async (postId: number) => {
   return await api(`likes/${postId}`, { method: 'POST' });
 };

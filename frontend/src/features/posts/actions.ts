@@ -1,12 +1,14 @@
 'use server';
 
 import { revalidateTag } from 'next/cache';
+import { redirect } from 'next/navigation';
 
 import {
   addLike,
   createComment,
   createPost,
   deleteLike,
+  deletePost,
   editPost,
   TCreateCommentCommand,
 } from '@/features/posts';
@@ -53,4 +55,13 @@ export const editPostAction = async (formData: FormData, postId: number) => {
   if (error) return error;
 
   revalidateTag('posts');
+};
+
+export const deletePostAction = async (postId: number) => {
+  const { error } = await deletePost(postId);
+
+  if (error) return error;
+
+  revalidateTag('posts');
+  redirect('/');
 };

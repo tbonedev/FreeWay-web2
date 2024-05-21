@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Patch,
@@ -75,6 +76,12 @@ export class PostsController {
       content: editPostDto.content,
       image: file ? getImageUrl(file.filename) : null,
     });
+  }
+
+  @Delete(':id')
+  @UseGuards(JwtGuard)
+  delete(@Param() { id }: { id: string }) {
+    return this.postsService.delete(+id);
   }
 
   @Post()

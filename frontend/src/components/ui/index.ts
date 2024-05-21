@@ -10,3 +10,4 @@ export * from './drawer';
 export * from './dialog';
 export * from './skeleton';
 export * from './textarea';
+export * from './alert-dialog';

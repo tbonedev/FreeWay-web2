@@ -59,10 +59,10 @@ export const PostFormModal = ({ children, post }: TPostFormModalProps) => {
   });
 
   const onSubmit = async ({ content }: TCreatePostFormSchema) => {
-    if (!post || !image) return;
+    if (!post && !image) return;
 
     const formData = new FormData();
-    formData.append('image', image);
+    formData.append('image', image!);
     formData.append('content', content);
 
     let error;
@@ -86,6 +86,7 @@ export const PostFormModal = ({ children, post }: TPostFormModalProps) => {
     });
 
     if (!post) form.reset();
+    if (!post) setImageUrl(undefined);
     setImage(undefined);
     setIsOpen(false);
   };

@@ -60,6 +60,18 @@ export class PostsService {
     });
   }
 
+  async delete(id: number): Promise<Post> {
+    const post = await this.findOne(id);
+
+    if (!post) throw new NotFoundException('Post not found');
+
+    return this.prisma.post.delete({
+      where: {
+        id,
+      },
+    });
+  }
+
   edit(id: number, data: EditPost): Promise<Post> {
     const updateData: EditPost = {
       content: data.content,

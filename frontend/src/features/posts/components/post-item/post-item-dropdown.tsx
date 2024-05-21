@@ -1,6 +1,7 @@
 'use client';
 
 import {
+  AlertDialogTrigger,
   Button,
   DialogTrigger,
   DropdownMenu,
@@ -13,12 +14,17 @@ import {
 } from '@/components';
 import { env } from '@/env.mjs';
 import { PostFormModal, TPost } from '@/features/posts';
+import { PostItemDeleteAlert } from '@/features/posts/components/post-item/post-item-delete-alert';
 
 type TPostsListItemDropdownProps = {
   post: TPost;
+  isPostPage?: boolean;
 };
 
-export const PostItemDropdown = ({ post }: TPostsListItemDropdownProps) => {
+export const PostItemDropdown = ({
+  post,
+  isPostPage,
+}: TPostsListItemDropdownProps) => {
   const { toast } = useToast();
 
   const copyLinkToClipboard = () => {
@@ -31,30 +37,41 @@ export const PostItemDropdown = ({ post }: TPostsListItemDropdownProps) => {
 
   return (
     <PostFormModal post={post}>
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button size="icon" variant="ghost">
-            <Icons.ellipsis />
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
-          {post.isEditable && (
-            <>
-              <DropdownMenuItem>
-                <DialogTrigger className="flex items-center">
-                  <Icons.edit className="mr-2 size-4" />
-                  <span>Edit post</span>
-                </DialogTrigger>
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-            </>
-          )}
-          <DropdownMenuItem onClick={copyLinkToClipboard}>
-            <Icons.copy className="mr-2 size-4" />
-            <span>Copy link</span>
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
+      <PostItemDeleteAlert id={post.id}>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button size="icon" variant="ghost">
+              <Icons.ellipsis />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            {isPostPage && post.isEditable && (
+              <>
+                <DropdownMenuItem>
+                  <AlertDialogTrigger className="flex items-center">
+                    <Icons.trash className="text-destructive mr-2 size-4" />
+                    <span className="text-destructive font-bold">
+                      Delete post
+                    </span>
+                  </AlertDialogTrigger>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>
+                  <DialogTrigger className="flex items-center">
+                    <Icons.edit className="mr-2 size-4" />
+                    <span>Edit post</span>
+                  </DialogTrigger>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+              </>
+            )}
+            <DropdownMenuItem onClick={copyLinkToClipboard}>
+              <Icons.copy className="mr-2 size-4" />
+              <span>Copy link</span>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </PostItemDeleteAlert>
     </PostFormModal>
   );
 };

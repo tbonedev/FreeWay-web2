@@ -19,6 +19,7 @@ import {
   SquarePen,
   Sun,
   SunMoon,
+  Trash2,
   UploadCloud,
   User,
   X,
@@ -47,6 +48,7 @@ export const Icons = {
   message: MessageCircle,
   arrowLeft: ChevronLeft,
   edit: SquarePen,
+  trash: Trash2,
   ellipsis: (props: LucideProps) => (
     <svg
       xmlns="http://www.w3.org/2000/svg"

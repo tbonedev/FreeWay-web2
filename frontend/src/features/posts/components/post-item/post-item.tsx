@@ -31,7 +31,7 @@ export const PostItem = async ({ post, isPostPage }: TPostItemProps) => {
               {moment(createdAt).fromNow()} {isUpdated && '(edited)'}
             </span>
           </div>
-          <PostItemDropdown post={post} />
+          <PostItemDropdown post={post} isPostPage={isPostPage} />
         </div>
         <p className="px-4 pb-4">{content}</p>
         <ImageWithFallback
