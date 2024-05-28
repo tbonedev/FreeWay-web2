@@ -52,7 +52,7 @@ export const NotificationsListItem = (notification: TNotification) => {
             href={
               notification.type === 'follow'
                 ? `/user/${notification.sender.username}`
-                : `/posts/${notification.postId}`
+                : `/post/${notification.postId}`
             }
           >
             Show
