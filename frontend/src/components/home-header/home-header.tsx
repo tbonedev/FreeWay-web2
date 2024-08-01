@@ -1,19 +1,12 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { useTheme } from 'next-themes';
 
 import { Button, Icons } from '@/components';
-import { logoutAction } from '@/features/auth';
 
 export const HomeHeader = () => {
-  const router = useRouter();
   const { setTheme, theme } = useTheme();
-
-  const logout = async () => {
-    await logoutAction();
-    router.push('/sign-in');
-  };
 
   return (
     <header className="my-5 flex w-full items-center justify-between px-4 md:hidden">
@@ -27,8 +20,10 @@ export const HomeHeader = () => {
           <Icons.sun className="dark:hidden" />
           <Icons.moon className="hidden dark:block" />
         </Button>
-        <Button variant="ghost" size="icon" onClick={logout}>
-          <Icons.logOut />
+        <Button variant="ghost" size="icon" asChild>
+          <Link href="/chat">
+            <Icons.send />
+          </Link>
         </Button>
       </div>
     </header>

@@ -22,12 +22,22 @@ export const NavMenu = ({ username }: TNavMenuProps) => {
       <NotificationsListSheet />
       <Button
         variant="ghost"
-        className="order-5 font-normal md:order-4 xl:justify-start"
+        className="order-5 font-normal md:order-6 xl:justify-start"
         asChild
       >
         <Link href={`/user/${username}`} className="flex items-center gap-4">
           <Icons.user />
           <span className="hidden text-base xl:block">Profile</span>
+        </Link>
+      </Button>
+      <Button
+        variant="ghost"
+        className="hidden font-normal md:order-4 md:flex xl:justify-start"
+        asChild
+      >
+        <Link href="/chat" className="flex items-center gap-4">
+          <Icons.send />
+          <span className="hidden text-base xl:block">Messages</span>
         </Link>
       </Button>
       <PostFormModal>
