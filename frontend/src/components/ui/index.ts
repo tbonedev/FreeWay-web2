@@ -11,3 +11,5 @@ export * from './dialog';
 export * from './skeleton';
 export * from './textarea';
 export * from './alert-dialog';
+export * from './radio-group';
+export * from './scroll-area';

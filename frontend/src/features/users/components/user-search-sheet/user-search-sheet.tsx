@@ -1,6 +1,6 @@
 'use client';
 
-import { ChangeEvent, KeyboardEvent, useEffect, useState } from 'react';
+import { KeyboardEvent, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 import { UserSearchResult } from './user-search-result';
@@ -15,31 +15,13 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components';
-import { getUsersByUsernameAction, TUser } from '@/features/users';
-import { useDebounce } from '@/hooks';
+import { useSearchUsers } from '@/features/users';
 
 export const UserSearchSheet = () => {
   const router = useRouter();
-  const [username, setUsername] = useState('');
-  const [users, setUsers] = useState<TUser[]>([]);
-  const debouncedValue = useDebounce(username);
   const [selectedUserIndex, setSelectedUserIndex] = useState(-1);
   const [isOpen, setIsOpen] = useState(false);
-
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setUsername(event.target.value);
-  };
-
-  useEffect(() => {
-    (async () => {
-      if (debouncedValue) {
-        const { data } = await getUsersByUsernameAction(debouncedValue);
-        setUsers(data || []);
-      } else {
-        setUsers([]);
-      }
-    })();
-  }, [debouncedValue]);
+  const { users, handleInputChange, username } = useSearchUsers();
 
   const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'ArrowDown') {
@@ -56,10 +38,6 @@ export const UserSearchSheet = () => {
       }
     }
   };
-
-  useEffect(() => {
-    if (!isOpen) setUsername('');
-  }, [isOpen]);
 
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
