@@ -22,7 +22,7 @@ export class UsersService {
     });
   }
 
-  findAllByUsername(username: string): Promise<User[]> {
+  findAllByUsername(username: string, currentUser: User): Promise<User[]> {
     if (!username) return;
 
     return this.prisma.user.findMany({
@@ -30,6 +30,9 @@ export class UsersService {
         username: {
           contains: username,
           mode: 'insensitive',
+        },
+        id: {
+          not: currentUser.id,
         },
       },
     });

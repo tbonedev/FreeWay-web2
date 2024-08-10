@@ -37,9 +37,13 @@ export class UsersController {
   }
 
   @Post()
+  @UseGuards(JwtGuard)
   @HttpCode(HttpStatus.OK)
-  findAllByUsername(@Query('username') username: string): Promise<User[]> {
-    return this.usersService.findAllByUsername(username);
+  findAllByUsername(
+    @Query('username') username: string,
+    @GetUser() currentUser: User,
+  ): Promise<User[]> {
+    return this.usersService.findAllByUsername(username, currentUser);
   }
 
   @UseGuards(JwtGuard)
