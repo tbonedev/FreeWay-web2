@@ -4,7 +4,7 @@ import { useOptimistic } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
-import { Button, Icons, useToast } from '@/components';
+import { Button, GoBackButton, Icons, useToast } from '@/components';
 import { logoutAction } from '@/features/auth';
 import {
   addFollowAction,
@@ -69,14 +69,7 @@ export const UserProfile = ({
   return (
     <>
       <div className="relative flex w-full items-center justify-center border-b pb-3 md:hidden">
-        <Button
-          variant="ghost"
-          size="icon"
-          className="absolute left-2"
-          onClick={() => router.back()}
-        >
-          <Icons.arrowLeft className="size-7" />
-        </Button>
+        <GoBackButton className="absolute left-2" />
         <h2 className="text-lg font-medium">
           {isCurrentUserProfile ? 'Your account' : username}
         </h2>

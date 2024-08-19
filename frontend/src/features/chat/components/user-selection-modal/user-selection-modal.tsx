@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 
 import {
   DialogFooter,
@@ -67,8 +66,8 @@ export const UserSelectionModal = () => {
           </RadioGroup>
         </ScrollArea>
         <DialogFooter>
-          <Button disabled={!selectedUsername} className="w-full" asChild>
-            <Link href={`/chat/${selectedUsername}`}>Chat</Link>
+          <Button disabled={!selectedUsername} className="w-full">
+            Chat
           </Button>
         </DialogFooter>
       </DialogContent>
