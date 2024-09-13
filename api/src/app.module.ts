@@ -10,6 +10,7 @@ import { CommentsModule } from './comments/comments.module';
 import { LikesModule } from './likes/likes.module';
 import { FollowsModule } from './follows/follows.module';
 import { NotificationsModule } from './notifications/notifications.module';
+import { ConversationsModule } from './conversations/conversations.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { NotificationsModule } from './notifications/notifications.module';
     LikesModule,
     FollowsModule,
     NotificationsModule,
+    ConversationsModule,
   ],
 })
 export class AppModule {}
